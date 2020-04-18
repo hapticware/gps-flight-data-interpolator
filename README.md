@@ -4,4 +4,6 @@ A library to calculate and expose estimated flight data based on a GPS source, c
 ## Setup
 
 See `.tool-versions` for system dependencies, install
-[Poetry](https://python-poetry.org/) and run `poetry install`.
+[Poetry](https://python-poetry.org/) and run `poetry install`. Run tests with
+`poetry run pytest` and use
+[Black](https://black.readthedocs.io/en/stable/index.html) for linting.
