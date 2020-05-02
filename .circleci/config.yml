@@ -1,0 +1,38 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: circleci/python:3.8.2
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "poetry.lock" }}
+
+      - run:
+          name: Install Dependencies
+          command: |
+            poetry install
+
+      - save_cache:
+          key: deps-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
+
+      - run:
+          name: Lint With Black
+          command: |
+            poetry run black --check "."
+
+      - run:
+          name: Run Pytest
+          command: |
+            poetry run pytest
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
